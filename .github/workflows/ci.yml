@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Test PainTrackerKit
+        working-directory: Packages/PainTrackerKit
+        run: swift test
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build app
+        run: |
+          xcodebuild build \
+            -project PainTracker.xcodeproj \
+            -scheme PainTracker \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO

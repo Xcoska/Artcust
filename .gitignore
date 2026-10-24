@@ -1,0 +1,14 @@
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+Support/Info.plist
+
+# SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+
+.DS_Store
